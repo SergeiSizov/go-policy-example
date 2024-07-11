@@ -59,5 +59,9 @@ func validate(payload []byte) ([]byte, error) {
 			kubewarden.NoCode)
 	}
 
-	return kubewarden.AcceptRequest()
+	pod.Metadata.Name = pod.Metadata.Name + "_yahoo"
+
+	return kubewarden.MutateRequest(pod)
+
+	//return json.Marshal(response)
 }
