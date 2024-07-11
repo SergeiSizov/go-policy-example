@@ -59,15 +59,7 @@ func validate(payload []byte) ([]byte, error) {
 			kubewarden.NoCode)
 	}
 
-	labels := pod.Metadata.Labels
-	if labels == nil {
-		labels = make(map[string]string)
-	}
-	labels["mutated-by"] = "kubewarden"
-
-	pod.Metadata.Labels = labels
+	pod.Metadata.Name = fmt.Sprintf("%s-changed", pod.Metadata.Name)
 
 	return kubewarden.MutateRequest(pod)
-
-	//return json.Marshal(response)
 }
